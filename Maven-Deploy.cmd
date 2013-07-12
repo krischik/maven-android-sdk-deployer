@@ -12,7 +12,7 @@
 
 SETLOCAL
     SET PATH=%PATH%;C:\opt\Git\bin
-    SET PATH=%PATH%;C:\opt\Scala\2.10.0\bin
+    SET PATH=%PATH%;C:\opt\Scala\2.10.2\bin
     SET PATH=%PATH%;C:\opt\maven\3.0.5\bin
 
     CALL scala -language:postfixOps -save %~f0 %*
