@@ -14,7 +14,7 @@ Contributors:
 - Lorenzo Villani - initial 4.0 support
 - Paul Merlin http://eskatos.github.com - Google Analytics extra
 - Matteo Panella <morpheus@level28.org> - Google AdMobs extra, support for 4.1
-- Benoit Billington https://github.com/Shusshu Google Cloud Messaging Client and Server, annotations.jar, 4.2, APK Expansion, Licensing
+- Benoit Billington https://github.com/Shusshu Google Cloud Messaging Client and Server, annotations.jar, 4.2, 4.3, APK Expansion, Licensing
 - Michael Lake https://github.com/mlake support for Javadoc attachment for platforms
 - Nic Strong http://www.codepoets.co.nz Google Play Services (gms)
 - Matias Dumrauf http://github.com/mdumrauf - Compatibility v7 library support, Google Analytics support for V1 and V2
@@ -24,11 +24,19 @@ Contributors:
 - Jenny Loomis Williamson https://github.com/jloomis fix for deployment
 - James Wald https://github.com/jameswald configured groupId and artifactId for support libraries
 - Thomas Prochazka https://github.com/tprochazka javadoc attachment
+- Shairon Toledo http://www.hashcode.eti.br doc update
+- Kohsuke Kawaguchi http://kohsuke.org/ webdav support for deployment
+- Lars Hoss http://cv.woeye.net/ v7 appcompat library support
+- Nemanja Nedic https://github.com/nemanjanedic appcompat javadoc fix
+- Yuvi Panda https://github.com/yuvipanda appcompat fix
+- Sebastian Roth https://github.com/ened added missing google-apis-18 add-on
 
 The Maven Android SDK Deployer is a helper maven project that can be
 used to install the libraries necessary to build Android applications
 with Maven and the Android Maven Plugin directly from your local
-Android SDK installation.
+Android SDK installation. 
+
+The dependencies can also be used from other build tools such as Gradle, Ant/Ivy or SBT.
 
 ATTENTION!  Currently some android.jar artifacts are available in
 Maven central and unless you use maps or usb related dependencies,
@@ -36,7 +44,7 @@ android 3.0+, the compatibility library jar files or insist on using
 the original jar files from the local SDK install, you might not need
 this tool anymore.
 
-You will however need this tool to access the latest Android 4.1
+You will however need this tool to access the latest Android 4.2
 release or to work around bugs like missing JSON libraries in some
 older artifacts deployed to Maven central. If you use this tool make
 sure your dependencies are as documented here.
@@ -90,6 +98,7 @@ To install only a certain sdk level use
     mvn install -P 4.0.3
     mvn install -P 4.1
     mvn install -P 4.2
+    mvn install -P 4.3
 
 As a result you should find the android.jar and maps.jar and a number of other
 libraries in your users local repository (~/.m2/repository/) and you can therefore
@@ -178,7 +187,14 @@ For the core platforms
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.2_r1</version>
+  <version>4.2.2_r2</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android</groupId>
+  <artifactId>android</artifactId>
+  <version>4.3_r1</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -269,6 +285,13 @@ For the maps add ons
   <version>17_r3</version>
   <scope>provided</scope>
 </dependency>
+
+<dependency>
+  <groupId>com.google.android.maps</groupId>
+  <artifactId>maps</artifactId>
+  <version>18_r1</version>
+  <scope>provided</scope>
+</dependency>
 ```
 
 For the usb add on
@@ -319,7 +342,14 @@ For the usb add on
 <dependency>
   <groupId>com.android.future</groupId>
   <artifactId>usb</artifactId>
-  <version>17_r2</version>
+  <version>17_r3</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>com.android.future</groupId>
+  <artifactId>usb</artifactId>
+  <version>18_r1</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -330,13 +360,13 @@ For the compatibility extra (ATTENTION! Do NOT use provided scope!!)
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v4</artifactId>
-  <version>13</version>
+  <version>18</version>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v13</artifactId>
-  <version>13</version>
+  <version>18</version>
 </dependency>
 ```
 
@@ -376,29 +406,39 @@ In order to use v7 extra, both dependencies (apklib & jar) are needed
 ```xml
 <dependency>
   <groupId>android.support</groupId>
-  <artifactId>compatibility-v7-gridlayout</artifactId>
-  <version>13</version>
+  <artifactId>compatibility-v7</artifactId>
+  <version>18</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
-  <artifactId>compatibility-v7-gridlayout</artifactId>
-  <version>13</version>
+  <artifactId>compatibility-v7</artifactId>
+  <version>18</version>
+  <type>jar</type>
+</dependency>
+```
+
+For the v7 appcompat library additional dependencies (apklib & jar) are required
+
+```xml
+<dependency>
+  <groupId>android.support</groupId>
+  <artifactId>compatibility-v7-appcompat</artifactId>
+  <version>18</version>
+  <type>apklib</type>
+</dependency>
+
+<dependency>
+  <groupId>android.support</groupId>
+  <artifactId>compatibility-v7-appcompat</artifactId>
+  <version>18</version>
   <type>jar</type>
 </dependency>
 ```
 
 For the Google Analytics extra (ATTENTION! Do NOT use provided scope!!)
 
-Google Analytics V1 (old)
-```xml
-<dependency>
-  <groupId>com.google.android.analytics</groupId>
-  <artifactId>analytics</artifactId>
-  <version>2</version>
-</dependency>
-```
 Google Analytics V2
 ```xml
 <dependency>
@@ -444,7 +484,7 @@ For the Android annotations tools
 <dependency>
   <groupId>com.google.android.annotations</groupId>
   <artifactId>annotations</artifactId>
-  <version>20.0.3</version>
+  <version>22.0.1</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -490,13 +530,13 @@ For the Google Play APK Expansion extra (ATTENTION! Do NOT use provided scope!!)
 <dependency>
   <groupId>com.google.android.apk.expansion</groupId>
   <artifactId>play-apk-expansion-downloader</artifactId>
-  <version>2</version>
+  <version>3</version>
   <type>apklib</type>
 </dependency>
 <dependency>
   <groupId>com.google.android.apk.expansion</groupId>
   <artifactId>play-apk-expansion-zip</artifactId>
-  <version>2</version>
+  <version>3</version>
   <type>apklib</type>
 </dependency>
 ```
@@ -511,6 +551,15 @@ For the Google Play Licensing extra (ATTENTION! Do NOT use provided scope!!)
   <type>apklib</type>
 </dependency>
 ```
+
+
+Android SDK Maven Repositories
+
+The Maven repositories from the Android SDK for google and android are copied to the local repository or uploaded to 
+a remote repository manager just like they are in the SDK and contain whatever components are in there. See the pom 
+files. Currently they are in the package space com.android.support and com.google.android. 
+
+
 
 To install only a specific module use
 
