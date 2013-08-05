@@ -25,21 +25,22 @@
 
 local Download_Server="krischik,uiq3@shell.sourceforge.net";
 
-mvn									    \
-    --define repo.id=UIQ3						    \
-    --define repo.url=file:///Work/HomePage/uiq3/htdocs/Repository	    \
+mvn								    \
+    --fail-never						    \
+    --define repo.id=UIQ3					    \
+    --define repo.url=file:///Work/HomePage/uiq3/htdocs/Repository  \
     deploy
 
 pushd "/Work/HomePage/uiq3/htdocs"
     sshpass -p ${KEY_SF} ssh ${Download_Server} create;
 
-    rsync							\
-	--archive						\
-	--delete						\
-	--verbose						\
-	--keep-dirlinks						\
-	"Repository"						\
-	"krischik,uiq3@web.sourceforge.net:htdocs/Repository"
+    rsync						\
+	--archive					\
+	--delete					\
+	--verbose					\
+	--keep-dirlinks					\
+	"Repository"					\
+	"krischik,uiq3@web.sourceforge.net:htdocs"
 
     sshpass -p ${KEY_SF} ssh ${Download_Server} shutdown
 popd
