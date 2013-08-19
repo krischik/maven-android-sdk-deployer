@@ -98,9 +98,26 @@
       <url>${repo.url}</url>
     </repository>
   </distributionManagement>
-
-<<<<<<< HEAD
-    <build>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>1.0-alpha-2</version>
+        </plugin>
+        <plugin>
+          <groupId>com.jayway.maven.plugins.android.generation2</groupId>
+          <artifactId>android-maven-plugin</artifactId>
+          <version>3.6.0</version>
+          <configuration>
+            <sdk>
+              <platform>${android.sdk.platform}</platform>
+            </sdk>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
@@ -127,39 +144,6 @@
         <artifactId>maven-scm-provider-svnexe</artifactId>
         <version>1.8</version>
       </extension>
-    </extensions>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>properties-maven-plugin</artifactId>
-                    <version>1.0-alpha-2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-=======
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>properties-maven-plugin</artifactId>
-          <version>1.0-alpha-2</version>
-        </plugin>
-        <plugin>
-          <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-          <artifactId>android-maven-plugin</artifactId>
-          <version>3.6.0</version>
-          <configuration>
-            <sdk>
-              <platform>${android.sdk.platform}</platform>
-            </sdk>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-webdav-jackrabbit</artifactId>
@@ -167,8 +151,6 @@
       </extension>
     </extensions>
   </build>
->>>>>>> ea7bf1881d69524fa53be472a38d8b267ef92f35
-
   <modules>
     <module>platforms</module>
     <module>add-ons</module>
