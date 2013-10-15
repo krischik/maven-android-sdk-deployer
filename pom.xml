@@ -9,7 +9,7 @@
   </parent>
   <groupId>com.simpligility.android.sdk-deployer</groupId>
   <artifactId>maven-android-sdk-deployer</artifactId>
-  <version>2.3.0</version>
+  <version>2.3.1</version>
   <packaging>pom</packaging>
   <name>Maven Android SDK Deployer</name>
   <description>The Maven Android SDK Deployer is a helper maven project that can be used to install the libraries
@@ -68,6 +68,10 @@
     <extras.compatibility.v7.appcompat.groupid>${extras.compatibility.groupid}</extras.compatibility.v7.appcompat.groupid>
     <extras.compatibility.v7.appcompat.artifactid>compatibility-v7-appcompat</extras.compatibility.v7.appcompat.artifactid>
     <extras.compatibility.v7.appcompat.version.prefix></extras.compatibility.v7.appcompat.version.prefix>
+
+    <extras.compatibility.v7.mediarouter.groupid>${extras.compatibility.groupid}</extras.compatibility.v7.mediarouter.groupid>
+    <extras.compatibility.v7.mediarouter.artifactid>compatibility-v7-mediarouter</extras.compatibility.v7.mediarouter.artifactid>
+    <extras.compatibility.v7.mediarouter.version.prefix></extras.compatibility.v7.mediarouter.version.prefix>
 
     <extras.compatibility.v7.groupid>${extras.compatibility.groupid}</extras.compatibility.v7.groupid>
     <extras.compatibility.v7.artifactid>compatibility-v7</extras.compatibility.v7.artifactid>
