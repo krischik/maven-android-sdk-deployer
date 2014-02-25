@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.simpligility.maven</groupId>
-    <artifactId>progressive-company-super-pom</artifactId>
-    <version>0.5.0</version>
+    <artifactId>progressive-organization-pom</artifactId>
+    <version>1.1.0</version>
   </parent>
   <groupId>com.simpligility.android.sdk-deployer</groupId>
   <artifactId>maven-android-sdk-deployer</artifactId>
-  <version>2.3.1</version>
+  <version>2.4.0</version>
   <packaging>pom</packaging>
   <name>Maven Android SDK Deployer</name>
   <description>The Maven Android SDK Deployer is a helper maven project that can be used to install the libraries
@@ -17,15 +17,15 @@
     maps.jar at the moment although the setup can be expanded easily.</description>
 
   <properties>
-    <!-- absolute path to the Android SDK install as defined in the ANDROID_HOME 
+    <!-- absolute path to the Android SDK install as defined in the ANDROID_HOME
       environment variable -->
     <android.sdk.path>${env.ANDROID_HOME}/</android.sdk.path>
     <android.sdk.platform>19</android.sdk.platform>
-    <!-- The repository server for your android artifacts (e.g. Nexus instance 
+    <!-- The repository server for your android artifacts (e.g. Nexus instance
       in this example) -->
     <repo.id>android.repo</repo.id>
-    <repo.url>http://localhost:8081/nexus/content/repositories/thirdparty</repo.url>
-    <!-- you need to provide username and password for the server in your 
+    <repo.url>http://nxs.bm.afrogleap.com/nexus/content/repositories/android-sdk</repo.url>
+    <!-- you need to provide username and password for the server in your
       settings.xml, see documentation for the maven-deploy-plugin -->
 
     <!-- The following properties don't need to be changed by the user -->
@@ -38,6 +38,7 @@
     <sdk.extras.admob.path>${sdk.extras.path}/google/admob_ads_sdk</sdk.extras.admob.path>
     <sdk.extras.gcm.path>${sdk.extras.path}/google/gcm</sdk.extras.gcm.path>
     <sdk.extras.google.play.services.path>${sdk.extras.path}/google/google_play_services</sdk.extras.google.play.services.path>
+    <sdk.extras.google.play.services.for.froyo.path>${sdk.extras.path}/google/google_play_services_froyo</sdk.extras.google.play.services.for.froyo.path>
     <sdk.extras.google.play.apk.expansion.path>${sdk.extras.path}/google/play_apk_expansion</sdk.extras.google.play.apk.expansion.path>
     <sdk.extras.google.play.licensing.path>${sdk.extras.path}/google/play_licensing</sdk.extras.google.play.licensing.path>
     <sdk.tools.path>${android.sdk.path}/tools</sdk.tools.path>
@@ -50,6 +51,8 @@
     <addon.googlemaps.artifactid>maps</addon.googlemaps.artifactid>
     <addon.android.future.usb.groupid>com.android.future</addon.android.future.usb.groupid>
     <addon.android.future.usb.artifactid>usb</addon.android.future.usb.artifactid>
+    <addon.android.gdk.groupid>com.google.android.gdk</addon.android.gdk.groupid>
+    <addon.android.gdk.artifactid>gdk</addon.android.gdk.artifactid>
 
     <extras.analytics.groupid>com.google.android.analytics</extras.analytics.groupid>
     <extras.analytics.artifactId>analytics</extras.analytics.artifactId>
@@ -113,7 +116,7 @@
         <plugin>
           <groupId>com.jayway.maven.plugins.android.generation2</groupId>
           <artifactId>android-maven-plugin</artifactId>
-          <version>3.7.0</version>
+          <version>3.8.0</version>
           <configuration>
             <sdk>
               <platform>${android.sdk.platform}</platform>
@@ -151,15 +154,149 @@
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-webdav-jackrabbit</artifactId>
-        <version>2.4</version>
+        <version>2.5</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-file</artifactId>
+        <version>2.5</version>
       </extension>
     </extensions>
+    <plugins>
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>initialize</phase>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>[3.1.1,)</version>
+                  <message>Check for Maven version &gt;=3.1.1 failed. Upgrade your Maven installation.</message>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
-  <modules>
-    <module>platforms</module>
-    <module>add-ons</module>
-    <module>extras</module>
-    <module>tools</module>
-    <module>repositories</module>
-  </modules>
+    <profiles>
+        <profile>
+            <id>all</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+                <module>extras</module>
+                <module>tools</module>
+                <module>repositories</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>1.5</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>1.6</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>2.1</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>2.2</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>2.3.3</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>3.0</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>3.1</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>3.2</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.0</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.0.3</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.1</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.2</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.3</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>4.4</id>
+            <modules>
+                <module>platforms</module>
+                <module>add-ons</module>
+            </modules>
+        </profile>
+    </profiles>
+>>>>>>> 4d23a43dff61fbfc8b5722b0f372ae234d29d955
 </project>
