@@ -125,16 +125,19 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <!--
+      – You never know which transport is neede to fill a local repository
+      -->
     <extensions>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-ssh</artifactId>
-        <version>2.2</version>
+        <version>2.4</version>
       </extension>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
         <artifactId>wagon-scm</artifactId>
-        <version>2.2</version>
+        <version>2.4</version>
       </extension>
       <extension>
         <groupId>org.jvnet.wagon-svn</groupId>
@@ -144,12 +147,12 @@
       <extension>
         <groupId>org.apache.maven.scm</groupId>
         <artifactId>maven-scm-manager-plexus</artifactId>
-        <version>1.8</version>
+        <version>1.8.1</version>
       </extension>
       <extension>
         <groupId>org.apache.maven.scm</groupId>
         <artifactId>maven-scm-provider-svnexe</artifactId>
-        <version>1.8</version>
+        <version>1.8.1</version>
       </extension>
       <extension>
         <groupId>org.apache.maven.wagon</groupId>
