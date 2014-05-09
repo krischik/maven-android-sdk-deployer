@@ -40,6 +40,12 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <sourcepath>${basedir}/target/generated-sources</sourcepath>
+	                <sourceFileExcludes>
+                            <exclude>**/R.java</exclude>
+                        </sourceFileExcludes>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -75,10 +81,13 @@
                 <module>compatibility-v7-appcompat</module>
                 <module>compatibility-v7-mediarouter</module>
                 <module>compatibility-v13</module>
-                <!--<module>analytics-v1</module>-->
-                <module>analytics-v2</module>
-                <module>admob</module>
-                <module>gcm</module>
+				<!--  deprecated by Google, will leave in for a while in case someone wants to manually activate and use it -->
+                <!-- <module>analytics-v2</module> -->
+                <!--  deprecated by Google with Aug 2014, but still available for download
+                might remove then, see http://googleadsdeveloper.blogspot.ca/2014/02/since-joining-google-play-services-back.html  -->
+                <module>admob</module> 
+                <!--  deprecated by Google, will leave in for a while in case someone wants to manually activate and use it -->
+                <!-- <module>gcm</module>  -->
                 <module>google-play-services</module>
                 <module>google-play-services-for-froyo</module>
                 <module>play-licensing</module>

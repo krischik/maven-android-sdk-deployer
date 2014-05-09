@@ -5,7 +5,7 @@ Author and Project Maintainer including numerous fixes and changes:
 
 Manfred Moser manfred@simpligility.com  at [simpligility technologies inc](http://www.simpligility.com)
 
-Contributors:
+Contributors (historical order..):
 
 - Hugo Josefson <hugo@josefson.org> - properties plugin usage
 - Jake Wharton <jakewharton@gmail.com> - 3.2, compatibility v13 and 4.0.3 support
@@ -33,6 +33,8 @@ Contributors:
 - Andreas Gawelczyk https://github.com/andreas- - Compatibility v7 mediarouter
 - Hoyt Summers Pittman https://github.com/secondsun - Google API 19, google play services to > Froyo, update android-maven-plugin
 - Aaron Alaniz https://github.com/aaalaniz - Google Glass Development Kit
+- Heath Borders https://github.com/hborders - documentation update
+- Hoyt Summers Pittman https://github.com/secondsun - javadoc fix for Java 8 support
 
 The Maven Android SDK Deployer is a helper maven project that can be
 used to install the libraries necessary to build Android applications
@@ -73,7 +75,7 @@ names like android-3, android-4 and so on.
 name reinstall that platform from the android tool.
 
 - In a similar manner the folder names in add-ons have to use the
-pattern addon_google_apis_google-3 up to addon_google_apis_google-15.
+pattern addon-google_apis-google-3 up to addon-google_apis-google-15.
 
 - If the folder names are different reinstall the add-ons as well
 
@@ -207,7 +209,7 @@ For the core platforms
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.4_r1</version>
+  <version>4.4.2_r3</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -309,7 +311,7 @@ For the maps add ons
 <dependency>
   <groupId>com.google.android.maps</groupId>
   <artifactId>maps</artifactId>
-  <version>19_r1</version>
+  <version>19_r4</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -369,7 +371,14 @@ For the usb add on
 <dependency>
   <groupId>com.android.future</groupId>
   <artifactId>usb</artifactId>
-  <version>18_r2</version>
+  <version>18_r3</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>com.android.future</groupId>
+  <artifactId>usb</artifactId>
+  <version>19_r4</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -380,13 +389,13 @@ For the compatibility extra (ATTENTION! Do NOT use provided scope!!)
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v4</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v13</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
 </dependency>
 ```
 
@@ -400,13 +409,13 @@ Use one of the following `<dependency>` instead of those shown above.
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>support-v4</artifactId>
-      <version>19.0.1</version>
+      <version>19.1.0</version>
     </dependency>
 
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>support-v13</artifactId>
-      <version>19.0.1</version>
+      <version>19.1.0</version>
     </dependency>
 ```
 
@@ -426,14 +435,14 @@ In order to use v7 extra, both dependencies (apklib & jar) are needed
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>jar</type>
 </dependency>
 ```
@@ -444,14 +453,14 @@ For the v7 appcompat library additional dependencies (apklib & jar) are required
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-appcompat</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-appcompat</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>jar</type>
 </dependency>
 ```
@@ -462,20 +471,20 @@ For the v7 mediarouter library additional dependencies (apklib & jar) are requir
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-mediarouter</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-mediarouter</artifactId>
-  <version>19.0.1</version>
+  <version>19.1.0</version>
   <type>jar</type>
 </dependency>
 ```
 
-For the Google Analytics extra (ATTENTION! Do NOT use provided scope!!)
-
+For the Google Analytics extra (ATTENTION! Do NOT use provided scope!!) (Deprecated)
+See: https://developers.google.com/analytics/devguides/collection/android/v4/
 Google Analytics V2
 ```xml
 <dependency>
@@ -485,13 +494,14 @@ Google Analytics V2
 </dependency>
 ```
 
-For the Google AdMob Ads extra (ATTENTION! Do NOT use provided scope!!)
+For the Google AdMob Ads extra (ATTENTION! Do NOT use provided scope!!) (Deprecated)
+See: http://googleadsdeveloper.blogspot.ca/2014/02/since-joining-google-play-services-back.html 
 
 ```xml
 <dependency>
   <groupId>com.google.android.admob</groupId>
   <artifactId>admob</artifactId>
-  <version>6.4.1-r11</version>
+  <version>6.4.1-r11.0.0</version>
 </dependency>
 ```
 
@@ -507,6 +517,9 @@ For the Google Cloud Messaging Library extra client library (ATTENTION! Do NOT u
 
 For the Google Cloud Messaging Library extra server library (ATTENTION! Do NOT use provided scope!!)
 
+You will need to run the extras/gcm module manually since it is deactivated
+due to GCM being deprecated by Google in the Android SDK.
+
 ```xml
 <dependency>
   <groupId>com.google.android.gcm</groupId>
@@ -521,7 +534,7 @@ For the Android annotations tools
 <dependency>
   <groupId>com.google.android.annotations</groupId>
   <artifactId>annotations</artifactId>
-  <version>22.3</version>
+  <version>22.6.2</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -532,7 +545,28 @@ For the uiautomator jar
 <dependency>
   <groupId>android.test.uiautomator</groupId>
   <artifactId>uiautomator</artifactId>
-  <version>4.4_r1</version>
+  <version>4.1.2_r4</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android.test.uiautomator</groupId>
+  <artifactId>uiautomator</artifactId>
+  <version>4.2.2_r2</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android.test.uiautomator</groupId>
+  <artifactId>uiautomator</artifactId>
+  <version>4.3_r2</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android.test.uiautomator</groupId>
+  <artifactId>uiautomator</artifactId>
+  <version>4.4.2_r3</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -543,13 +577,13 @@ For the Google Play Services extra (ATTENTION! Do NOT use provided scope!!)
 <dependency>
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>13.0.0</version>
+  <version>16.0.0</version>
   <type>apklib</type>
 </dependency>
 <dependency>
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services</artifactId>
-  <version>13.0.0</version>
+  <version>16.0.0</version>
   <type>jar</type>
 </dependency>
 ```
@@ -560,13 +594,13 @@ For the Google Play Services for Froyo extra (ATTENTION! Do NOT use provided sco
 <dependency>
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services-for-froyo</artifactId>
-  <version>12</version>
+  <version>12.0.0</version>
   <type>apklib</type>
 </dependency>
 <dependency>
   <groupId>com.google.android.gms</groupId>
   <artifactId>google-play-services-for-froyo</artifactId>
-  <version>12</version>
+  <version>12.0.0</version>
   <type>jar</type>
 </dependency>
 ```
@@ -602,6 +636,7 @@ For the Google Play Licensing extra (ATTENTION! Do NOT use provided scope!!)
 For Google Glass development
 
 ```xml
+<!-- For development on ICS with GDK -->
 <dependency>
 	<groupId>android</groupId>
 	<artifactId>android</artifactId>
@@ -613,6 +648,20 @@ For Google Glass development
 	<artifactId>gdk</artifactId>
 	<version>15_r2</version>
 	<scope>provided</scope>
+</dependency>
+
+<!-- For development on KitKat with GDK -->
+<dependency>
+    <groupId>android</groupId>
+    <artifactId>android</artifactId>
+    <version>4.4.2_r3</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>com.google.android.gdk</groupId>
+    <artifactId>gdk</artifactId>
+    <version>19_r4</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
