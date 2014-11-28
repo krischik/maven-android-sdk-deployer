@@ -1,9 +1,14 @@
 Maven Android SDK Deployer
 --------------------------
 
-Author and Project Maintainer including numerous fixes and changes:
+Original author including numerous fixes and changes:
 
 Manfred Moser manfred@simpligility.com  at [simpligility technologies inc](http://www.simpligility.com)
+
+Project maintainers:
+
+- Manfred Moser manfred@simpligility.com  at [simpligility technologies inc](http://www.simpligility.com)
+- Benoit Billington https://github.com/Shusshu
 
 Contributors (historical order..):
 
@@ -14,7 +19,7 @@ Contributors (historical order..):
 - Lorenzo Villani - initial 4.0 support
 - Paul Merlin http://eskatos.github.com - Google Analytics extra
 - Matteo Panella <morpheus@level28.org> - Google AdMobs extra, support for 4.1
-- Benoit Billington https://github.com/Shusshu Google Cloud Messaging Client and Server, annotations.jar, 4.2, 4.3, 4.4, APK Expansion, Licensing
+- Benoit Billington https://github.com/Shusshu Google Cloud Messaging Client and Server, annotations.jar, 4.2, 4.3, 4.4, APK Expansion, Licensing, 4.4W, L, 5.0, MultiDex
 - Michael Lake https://github.com/mlake support for Javadoc attachment for platforms
 - Nic Strong http://www.codepoets.co.nz Google Play Services (gms)
 - Matias Dumrauf http://github.com/mdumrauf - Compatibility v7 library support, Google Analytics support for V1 and V2
@@ -35,6 +40,10 @@ Contributors (historical order..):
 - Aaron Alaniz https://github.com/aaalaniz - Google Glass Development Kit
 - Heath Borders https://github.com/hborders - documentation update
 - Hoyt Summers Pittman https://github.com/secondsun - javadoc fix for Java 8 support
+- Dieter Adriaenssens https://github.com/ruleant
+- Quentin Rousseau https://github.com/kwent
+- Mingfai Ma https://github.com/mingfai
+- Raphael Ackermann https://github.com/rtack sdk 21 fix for apklibs
 
 The Maven Android SDK Deployer is a helper maven project that can be
 used to install the libraries necessary to build Android applications
@@ -55,7 +64,7 @@ older artifacts deployed to Maven central. If you use this tool make
 sure your dependencies are as documented here.
 
 The android.jar artifacts in Maven central are available with the
-groupId com.google.android, whereas this tool uses android.android to
+groupId `com.google.android`, whereas this tool uses groupId `android` to
 avoid overlap.
 
 How to Use
@@ -107,6 +116,8 @@ To install only a certain sdk level use
     mvn install -P 4.2
     mvn install -P 4.3
     mvn install -P 4.4
+    mvn install -P 4.4W
+    mvn install -P 5.0
 
 As a result you should find the android.jar and maps.jar and a number of other
 libraries in your users local repository (~/.m2/repository/) and you can therefore
@@ -174,42 +185,56 @@ For the core platforms
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.0_r3</version>
+  <version>4.0_r4</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.0.3_r3</version>
+  <version>4.0.3_r5</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.1.2_r4</version>
+  <version>4.1.2_r5</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.2.2_r2</version>
+  <version>4.2.2_r3</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.3_r2</version>
+  <version>4.3.1_r3</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>android</groupId>
   <artifactId>android</artifactId>
-  <version>4.4.2_r3</version>
+  <version>4.4.2_r4</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android</groupId>
+  <artifactId>android</artifactId>
+  <version>4.4W_r1</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>android</groupId>
+  <artifactId>android</artifactId>
+  <version>5.0_r1</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -389,13 +414,13 @@ For the compatibility extra (ATTENTION! Do NOT use provided scope!!)
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v4</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v13</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
 </dependency>
 ```
 
@@ -403,19 +428,21 @@ If you find that the above `<dependency>` fails due to conflicts, your project a
 
 If you have problems with `<exclude>`, another option is to override the `<groupid>`, `<artifactid>`, and `<version>` properties used by the deployer to match Google's published library.
 
-Use one of the following `<dependency>` instead of those shown above.
+Use one of the following `<dependency>` instead of those shown above. From version 20.0.0 the support-v4 & v13 are packaged as aar instead of jar
 
 ```xml
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>support-v4</artifactId>
-      <version>19.1.0</version>
+      <version>21.0.0-rc1</version>
+	  <type>aar</type>
     </dependency>
 
     <dependency>
       <groupId>com.google.android</groupId>
       <artifactId>support-v13</artifactId>
-      <version>19.1.0</version>
+      <version>21.0.0-rc1</version>
+	  <type>aar</type>
     </dependency>
 ```
 
@@ -447,39 +474,134 @@ In order to use v7 extra, both dependencies (apklib & jar) are needed
 </dependency>
 ```
 
-For the v7 appcompat library additional dependencies (apklib & jar) are required
+For the v7 appcompat library additional dependencies (apklib & jar) are required (Deprecated)
 
 ```xml
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-appcompat</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-appcompat</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
   <type>jar</type>
 </dependency>
 ```
 
-For the v7 mediarouter library additional dependencies (apklib & jar) are required
+For the v7 appcompat library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>appcompat-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v7 gridlayout library additional dependencies (apklib & jar) are required (Deprecated)
+
+```xml
+<dependency>
+  <groupId>android.support</groupId>
+  <artifactId>compatibility-v7-gridlayout</artifactId>
+  <version>20.0.0/version>
+  <type>apklib</type>
+</dependency>
+
+<dependency>
+  <groupId>android.support</groupId>
+  <artifactId>compatibility-v7-gridlayout</artifactId>
+  <version>20.0.0</version>
+  <type>jar</type>
+</dependency>
+```
+
+For the v7 gridlayout library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>gridlayout-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v7 mediarouter library additional dependencies (apklib & jar) are required (Deprecated)
 
 ```xml
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-mediarouter</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
   <type>apklib</type>
 </dependency>
 
 <dependency>
   <groupId>android.support</groupId>
   <artifactId>compatibility-v7-mediarouter</artifactId>
-  <version>19.1.0</version>
+  <version>20.0.0</version>
   <type>jar</type>
+</dependency>
+```
+
+For the v7 mediarouter library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>mediarouter-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v7 cardview library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>cardview-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v17 leanback library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>leanback-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v7 palette library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>palette-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
+</dependency>
+```
+
+For the v7 recyclerview library an additional dependency (aar) is required
+
+```xml
+<dependency>
+  <groupId>com.android.support</groupId>
+  <artifactId>recyclerview-v7</artifactId>
+  <version>21.0.0-rc1</version>
+  <type>aar</type>
 </dependency>
 ```
 
@@ -571,7 +693,7 @@ For the uiautomator jar
 </dependency>
 ```
     
-For the Google Play Services extra (ATTENTION! Do NOT use provided scope!!)
+For the Google Play Services extra (ATTENTION! Do NOT use provided scope!!) (Deprecated)
 
 ```xml
 <dependency>
@@ -585,6 +707,17 @@ For the Google Play Services extra (ATTENTION! Do NOT use provided scope!!)
   <artifactId>google-play-services</artifactId>
   <version>16.0.0</version>
   <type>jar</type>
+</dependency>
+```
+
+For the Google Play Services extra (ATTENTION! Do NOT use provided scope!!)
+
+```xml
+<dependency>
+  <groupId>com.google.android.gms</groupId>
+  <artifactId>play-services</artifactId>
+  <version>4.4.52</version>
+  <type>aar</type>
 </dependency>
 ```
 
@@ -787,7 +920,7 @@ the android SDK manager and install them again.
 
 Similar problem occurs with the extras version identifier. If the folders 
 naming is 100% allright and you receive the messages about not finding 
-some arifacts - remove extras and reinstall them back. That's because Google
+some artifacts - remove extras and reinstall them back. That's because Google
 changed the version identifier naming policy. For example for support extras 
 it was 19, now it's 19.0.1
 
