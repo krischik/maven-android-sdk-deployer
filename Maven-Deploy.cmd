@@ -13,16 +13,17 @@
 SETLOCAL
     SET PATH=%PATH%;C:\opt\Git\1.9.4\bin
     SET PATH=%PATH%;C:\opt\Scala\2.11.4\bin
+    SET  Scala_Library=%Work%\Repositories\Local\net\sourceforge\uiq3\Calculator-Script\6.3.6\Calculator-Script-6.3.6.jar
 
     SET NOSER_VERSION=3.1.3
-    CALL scala -classpath c:/Work/Repositories/Local/com/noser/Noser-Scalascript/%NOSER_VERSION%/Noser-Scalascript-%NOSER_VERSION%.jar -save %~f0 %*
+    CALL scala -classpath %Scala_Library% -save %~f0 %*
 ENDLOCAL
 
 GOTO :eof
 ::!#
 
 import scala.sys.process._
-import com.noser.Maven._
+import net.sourceforge.uiq3.Maven._
 
 val Maven_Deploy     = System.getenv ("MAVEN_DEPLOY")
 val Maven_Repository = System.getenv ("MAVEN_REPOSITORY")
