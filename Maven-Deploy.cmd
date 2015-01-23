@@ -11,8 +11,8 @@
 @ECHO OFF
 
 SETLOCAL
-    SET PATH=%PATH%;C:\opt\Git\bin
-    SET PATH=%PATH%;C:\opt\Scala\2.10.2\bin
+    SET PATH=%PATH%;C:\opt\Git\1.9.4\bin
+    SET PATH=%PATH%;C:\opt\Scala\2.11.4\bin
 
     SET NOSER_VERSION=3.1.3
     CALL scala -classpath c:/Work/Repositories/Local/com/noser/Noser-Scalascript/%NOSER_VERSION%/Noser-Scalascript-%NOSER_VERSION%.jar -save %~f0 %*
@@ -29,13 +29,15 @@ val Maven_Repository = System.getenv ("MAVEN_REPOSITORY")
 val Project_Name     = System.getenv ("PROJECT_NAME")
 val Maven_Name	     = Project_Name +" Maven Repository"
 
+//  "--activate-profiles"   :: "5.0"				::
+
 (mvn :::
-    "--fail-at-end"				::
-    "--define" :: "repo.id="   + Project_Name 	  ::
-    "--define" :: "repo.name=" + Maven_Name   	  ::
-    "--define" :: "repo.url="  + Maven_Deploy 	  ::
-    "--define" :: "repo="      + Maven_Repository ::
-    "deploy"   :: Nil).!
+    "--fail-at-end"						::
+    "--define"		    :: "repo.id="   + Project_Name	::
+    "--define"		    :: "repo.name=" + Maven_Name	::
+    "--define"		    :: "repo.url="  + Maven_Deploy	::
+    "--define"		    :: "repo="	    + Maven_Repository	::
+    "deploy"		    :: Nil).!
 
 // vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :
 // vim: set textwidth=0 filetype=scala foldmethod=marker nospell :
