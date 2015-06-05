@@ -191,12 +191,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <module>repositories</module>
+                <module>extras</module>
                 <module>platforms</module>
                 <module>add-ons</module>
-                <module>extras</module>
 				<!-- Deprecated tools as the only module 'annotation' is now part of the android sdk jar -->
                 <!-- <module>tools</module> -->
-                <module>repositories</module>
             </modules>
         </profile>
         <profile>
@@ -307,7 +307,7 @@
             <id>5.0</id>
             <modules>
                 <module>platforms</module>
-		            <module>add-ons</module>
+		        <module>add-ons</module>
             </modules>
         </profile>
         <profile>
@@ -315,6 +315,12 @@
             <modules>
                 <module>platforms</module>
                 <module>add-ons</module>
+            </modules>
+        </profile>
+		<profile>
+            <id>MNC</id>
+            <modules>
+                <module>platforms</module>
             </modules>
         </profile>
     </profiles>
