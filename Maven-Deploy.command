@@ -36,6 +36,8 @@ ssh-add					\
 scala -classpath ${Scala_Library} -save Maven-Deploy.cmd
 
 pushd "/Work/HomePage/uiq3/htdocs"
+    #sshpass -p ${KEY_SF} ssh ${Download_Server} create;
+
     rsync						\
 	--archive					\
 	--delete					\
@@ -44,7 +46,7 @@ pushd "/Work/HomePage/uiq3/htdocs"
 	"Repository"					\
 	"krischik,uiq3@web.sourceforge.net:htdocs"
 
-    sshpass -p ${KEY_SF} ssh ${Download_Server} shutdown
+    #sshpass -p ${KEY_SF} ssh ${Download_Server} shutdown
 popd
 
 # vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :
