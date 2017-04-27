@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.simpligility.android.sdk-deployer</groupId>
-    <artifactId>android-15</artifactId>
+    <artifactId>android-25</artifactId>
     <packaging>pom</packaging>
-    <name>Android Platform 4.0.3 API 15</name>
+    <name>Android Platform 7.1 API 25</name>
 
     <parent>
         <groupId>com.simpligility.android.sdk-deployer</groupId>
@@ -13,11 +13,13 @@
     </parent>
 
     <properties>
-        <jar.simpleVersion>4.0.3</jar.simpleVersion>
+        <jar.simpleVersion>7.1</jar.simpleVersion>
     </properties>
+
 
     <build>
         <plugins>
+
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
@@ -28,7 +30,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <classesDirectory>${android.sdk.path}/sources/android-15</classesDirectory>
+                            <classesDirectory>${android.sdk.path}/sources/android-25</classesDirectory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
@@ -37,10 +39,13 @@
                     </execution>
                 </executions>
             </plugin>
+
+
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>android-jar</id>
                         <phase>install</phase>
                         <goals><goal>install-file</goal></goals>
                         <configuration>
@@ -50,7 +55,19 @@
                             <version>${jar.version}</version>
                             <file>${jar.path}</file>
                             <javadoc>${javadoc.path}</javadoc>
-                            <sources>${project.build.directory}/android-sources.jar</sources>
+	                        <sources>${project.build.directory}/android-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>uiautomator-jar</id>
+                        <phase>install</phase>
+                        <goals><goal>install-file</goal></goals>
+                        <configuration>
+                            <groupId>${platform.uiautomator.groupid}</groupId>
+                            <artifactId>${platform.uiautomator.artifactid}</artifactId>
+                            <packaging>jar</packaging>
+                            <version>${jar.version}</version>
+                            <file>${uiautomator.path}</file>
                         </configuration>
                     </execution>
                 </executions>
@@ -59,7 +76,7 @@
                 <artifactId>maven-deploy-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>a</id>
+                        <id>android-jar</id>
                         <phase>deploy</phase>
                         <goals><goal>deploy-file</goal></goals>
                         <configuration>
@@ -71,11 +88,26 @@
                             <url>${repo.url}</url>
                             <repositoryId>${repo.id}</repositoryId>
                             <javadoc>${javadoc.path}</javadoc>
-                            <sources>${project.build.directory}/android-sources.jar</sources>
+	                        <sources>${project.build.directory}/android-sources.jar</sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>uiautomator-jar</id>
+                        <phase>deploy</phase>
+                        <goals><goal>deploy-file</goal></goals>
+                        <configuration>
+                            <groupId>${platform.uiautomator.groupid}</groupId>
+                            <artifactId>${platform.uiautomator.artifactid}</artifactId>
+                            <packaging>jar</packaging>
+                            <version>${jar.version}</version>
+                            <file>${uiautomator.path}</file>
+                            <url>${repo.url}</url>
+                            <repositoryId>${repo.id}</repositoryId>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
