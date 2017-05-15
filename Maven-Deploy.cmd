@@ -38,6 +38,7 @@ val Maven_Name	     = Project_Name +" Maven Repository"
     "--define"		    :: "repo.name=" + Maven_Name	::
     "--define"		    :: "repo.url="  + Maven_Deploy	::
     "--define"		    :: "repo="	    + Maven_Repository	::
+    "--activate-profiles"   :: "5.1,6.0,7.0,7.1"		::
     "deploy"		    :: Nil).!
 
 // vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :

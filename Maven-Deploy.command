@@ -26,27 +26,32 @@
 setopt Err_Exit
 
 local Download_Server="krischik,uiq3@shell.sourceforge.net"
-local Scala_Library="/Work/Repositories/Local/net/sourceforge/uiq3/Calculator-Script/6.3.6/Calculator-Script-6.3.6.jar"
+local Scala_Library="/Work/Repositories/Local/net/sourceforge/uiq3/Calculator-Script/6.7.9/Calculator-Script-6.7.9.jar"
 
-ssh-add					\
-    /Users/martin/.ssh/id_rsa		\
-    /Users/martin/.ssh/id_dsa		\
-    /Users/martin/.ssh/Martin_Krischik_SF
+typeset -x -g         M2_HOME="/opt/local/share/java/apache-maven-3.1.1"
+typeset -x -g     ANDROID_HOME="/opt/local/share/java/android-sdk-macosx"
+typeset -x -g     MAVEN_DEPLOY="file:///Work/HomePage/uiq3/htdocs/Repository"
+typeset -x -g     PROJECT_NAME="UIQ3"
+typeset -x -g MAVEN_REPOSITORY="/Work/HomePage/uiq3/htdocs/Repository"
+
+ssh-add					    \
+    /Users/${USER}/.ssh/id_rsa		    \
+    /Users/${USER}/.ssh/id_dsa		    \
+    /Users/${USER}/.ssh/Martin_Krischik_SF
 
 scala -classpath ${Scala_Library} -save Maven-Deploy.cmd
 
 pushd "/Work/HomePage/uiq3/htdocs"
-    #sshpass -p ${KEY_SF} ssh ${Download_Server} create;
+    setopt No_Err_Exit
+	grm --verbose Repository/net/sourceforge/uiq3/**/*.apk
+    setopt Err_Exit
 
     rsync						\
 	--archive					\
-	--delete					\
 	--verbose					\
 	--keep-dirlinks					\
 	"Repository"					\
 	"krischik,uiq3@web.sourceforge.net:htdocs"
-
-    #sshpass -p ${KEY_SF} ssh ${Download_Server} shutdown
 popd
 
 # vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :
