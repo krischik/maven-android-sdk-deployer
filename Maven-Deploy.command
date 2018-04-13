@@ -36,7 +36,7 @@ ssh-add					\
 scala -classpath ${Scala_Library} -save Maven-Deploy.cmd
 
 pushd "/Work/HomePage/uiq3/htdocs"
-    #sshpass -p ${KEY_SF} ssh ${Download_Server} create;
+    sshpass -p ${KEY_SF} ssh ${Download_Server} create;
 
     rsync						\
 	--archive					\
