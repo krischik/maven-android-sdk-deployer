@@ -37,6 +37,7 @@ val Maven_Repository = System.getenv ("MAVEN_REPOSITORY")
 val Project_Name     = System.getenv ("PROJECT_NAME")
 val Maven_Name	     = Project_Name +" Maven Repository"
 
+//  "--activate-profiles"   :: "8.0"				::
 //  "--activate-profiles"   :: "5.0"				::
 //  "--activate-profiles"   :: "5.1,6.0,7.0,7.1"		::
 

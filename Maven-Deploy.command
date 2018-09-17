@@ -44,6 +44,7 @@ pushd "/Work/HomePage/uiq3/htdocs"
 
     rsync						\
 	--archive					\
+	--update					\
 	--verbose					\
 	--keep-dirlinks					\
 	"Repository"					\
