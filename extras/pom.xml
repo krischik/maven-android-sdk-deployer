@@ -10,7 +10,7 @@
     <parent>
         <groupId>com.simpligility.android.sdk-deployer</groupId>
         <artifactId>maven-android-sdk-deployer</artifactId>
-        <version>2.4.0</version>
+        <version>2.10.0</version>
     </parent>
     <build>
         <pluginManagement>
@@ -40,28 +40,32 @@
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <sourcepath>${basedir}/target/generated-sources</sourcepath>
+	                <sourceFileExcludes>
+                            <exclude>**/R.java</exclude>
+                        </sourceFileExcludes>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>properties-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <phase>initialize</phase>
+                            <goals>
+                                <goal>read-project-properties</goal>
+                            </goals>
+                            <configuration>
+                                <files>
+                                    <file>${sdk.extras.compatibility.path}/source.properties</file>
+                                </files>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>${sdk.extras.compatibility.path}/source.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
     <profiles>
         <profile>
@@ -70,19 +74,30 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>compatibility-v4</module>
-                <module>compatibility-v7-gridlayout</module>
-                <module>compatibility-v7-appcompat</module>
-                <module>compatibility-v7-mediarouter</module>
-                <module>compatibility-v13</module>
-                <!--<module>analytics-v1</module>-->
-                <module>analytics-v2</module>
-                <module>admob</module>
-                <module>gcm</module>
-                <module>google-play-services</module>
-                <module>google-play-services-for-froyo</module>
-                <module>play-licensing</module>
-                <module>play-apk-expansion</module>
+                <!--  none of the compatibility modules are in the SDK anymore for me (2016-05)-->
+
+<!--                 <module>compatibility-v4</module> -->
+<!--                 <module>compatibility-v7-gridlayout</module> -->
+<!--                 <module>compatibility-v7-appcompat</module> -->
+
+                <!--  commented out since it currently breaks on Mac OSX -->
+                <!-- <module>compatibility-v7-mediarouter</module> -->
+
+<!--                 <module>compatibility-v13</module> -->
+
+                <!--  currently broken with latest SDK, seems to be very changed a lot (2016-05)-->
+                <!--  <module>google-play-services</module>  -->
+
+                 <!--  these following two work with Google Play Licensing Library package
+                  and Google Play APK Expansion Library package installed 
+                  see https://developer.android.com/google/play/expansion-files.html#AboutLibraries
+                  but not sure how to get it installed on the command line or in travis
+                  therefore commenting out here -->
+<!--                  <module>play-licensing</module>  -->
+<!--                  <module>play-apk-expansion</module>  -->
+
+<!-- seems to be all gone (2016-05 )-->
+<!--                 <module>multidex</module> -->
             </modules>
         </profile>
     </profiles>

@@ -10,7 +10,7 @@
   <parent>
     <groupId>com.simpligility.android.sdk-deployer</groupId>
     <artifactId>maven-android-sdk-deployer</artifactId>
-    <version>2.4.0</version>
+    <version>2.10.0</version>
   </parent>
 
   <build>
@@ -42,6 +42,7 @@
                 <source>${repository.path}</source>
                 <target>${repo.url}</target>
                 <targetId>${repo.id}</targetId>
+                <excludes>NOTICE.txt,source.properties</excludes>
               </configuration>
             </execution>
           </executions>
@@ -60,6 +61,7 @@
       <modules>
         <module>google-m2repository</module>
         <module>android-m2repository</module>
+        <module>extras-m2repository</module>
       </modules>
     </profile>
   </profiles>
