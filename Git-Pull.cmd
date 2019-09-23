@@ -22,9 +22,13 @@ GOTO :eof
 
 import scala.sys.process._
 
-"git" :: "pull" :: "https://github.com/mosabua/maven-android-sdk-deployer.git" :: Nil !;
-"git" :: "pull" :: "https://github.com/krischik/maven-android-sdk-deployer.git" :: Nil !;
-"git" :: "push" :: Nil !;
+"git" :: "stash"    :: "push"	    :: Nil !;
+"git" :: "checkout" :: "master"	    :: Nil !;
+"git" :: "pull"			    :: Nil !;
+"git" :: "checkout" :: "develop"    :: Nil !; 
+"git" :: "pull"			    :: Nil !;
+"git" :: "merge"    :: "master"	    :: Nil !;
+"git" :: "stash"    :: "pop"	    :: Nil !;
 
 // vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :
 // vim: set textwidth=0 filetype=scala foldmethod=marker nospell :

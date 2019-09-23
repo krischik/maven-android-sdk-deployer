@@ -27,6 +27,7 @@ val Maven_Deploy     = System.getenv ("MAVEN_DEPLOY")
 val Maven_Reporitory = System.getenv ("MAVEN_REPOSITORY")
 val Project_Name     = System.getenv ("PROJECT_NAME")
 val Maven_Name	     = Project_Name +" Maven Repository"
+val Profiles	     = "8.0,8.1,9.0"
 val mvn		     = if (System.getProperty ("os.name") contains "Windows")
     {
         "cmd" :: "/C" :: M2_Home + "\\bin\\mvn" :: Nil
@@ -36,13 +37,18 @@ val mvn		     = if (System.getProperty ("os.name") contains "Windows")
         "mvn" :: Nil
     }
 
-mvn ::: "--fail-at-end" :: "install" :: Nil !;
 mvn :::
-    "--fail-at-end"				::
-    "--define" :: "repo.id="   + Project_Name 	  ::
-    "--define" :: "repo.name=" + Maven_Name   	  ::
-    "--define" :: "repo.url="  + Maven_Deploy 	  ::
-    "--define" :: "repo="      + Maven_Reporitory ::
+    "--fail-at-end"				    :: 
+    "--activate-profiles" :: Profiles		    ::
+    "install" :: Nil !;
+
+mvn :::
+    "--fail-at-end"				    ::
+    "--activate-profiles" :: Profiles		    ::
+    "--define" :: "repo.id="   + Project_Name	    ::
+    "--define" :: "repo.name=" + Maven_Name	    ::
+    "--define" :: "repo.url="  + Maven_Deploy	    ::
+    "--define" :: "repo="      + Maven_Reporitory   ::
     "deploy"   :: Nil !;
 
 // vim: set wrap tabstop=8 shiftwidth=4 softtabstop=4 noexpandtab :
