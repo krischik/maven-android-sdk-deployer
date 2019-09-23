@@ -32,6 +32,8 @@ git branch --set-upstream-to="remotes/origin/develop"           "develop"
 
 git remote add upstream "https://github.com/mosabua/maven-android-sdk-deployer.git"
 
+git branch --set-upstream-to="remotes/upstream/master" "master"
+
 ############################################################ {{{1 ###########
 # vim: set nowrap tabstop=8 shiftwidth=4 softtabstop=4 expandtab :
 # vim: set textwidth=0 filetype=zsh foldmethod=marker nospell :
